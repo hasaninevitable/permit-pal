@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application - LetterGen</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap">
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .menu-par {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-par h2 {
+            margin: 0;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .nav ul li {
+            margin-left: 20px;
+        }
+        .nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .header-info-par {
+            text-align: center;
+            padding: 100px 0;
+            background-color: #5d5d5d;
+            color: white;
+        }
+        #form-section {
+            background: white;
+            padding: 50px 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            border: none;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        footer ul li a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="menu-par">
+                <div class="logo-par">
+                    <a href="index.html">
+                        <h2>LetterGen</h2>
+                    </a>
+                </div>
+                <div class="nav">
+                    <ul>
+                        <li><a class="menu-hover" href="index.html">Home</a></li>
+                        <li><a class="menu-hover" href="banking.html">Banking</a></li>
+                        <li><a class="menu-hover" href="municipal.html">Municipal</a></li>
+                        <li><a class="menu-hover" href="employee.html">Employee</a></li>
+                        <li><a class="menu-hover" href="loan.html">Loan Application</a></li>
+                    </ul>
+                </div>
+                <div id="toggle-btn">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="header-info-par">
+                <h1>Loan Application</h1>
+                <p>Generate your loan application letter quickly and easily.</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="form-section">
+        <div class="container">
+            <h2>Generate Your Loan Application Letter</h2>
+            <form id="loan-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loan-amount">Loan Amount:</label>
+                    <input type="number" id="loan-amount" name="loan-amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="loan-purpose">Purpose of Loan:</label>
+                    <textarea id="loan-purpose" name="loan-purpose" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="generateLoanApplication()">Generate Application</button>
+                </div>
+            </form>
+            <a id="download-link" href="#" download style="display:none;">Download Application</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="banking.html">Banking</a></li>
+                <li><a href="municipal.html">Municipal</a></li>
+                <li><a href="employee.html">Employee</a></li>
+                <li><a href="loan.html">Loan Application</a></li>
+            </ul>
+            <p>&copy; 2024 LetterGen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Include jsPDF from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        function generateLoanApplication() {
+            const { jsPDF } = window.jspdf;
+            
+            const name = document.getElementById('name').value.trim() || '___________';
+            const address = document.getElementById('address').value.trim() || '___________';
+            const phone = document.getElementById('phone').value.trim() || '___________';
+            const email = document.getElementById('email').value.trim() || '___________';
+            const loanAmount = document.getElementById('loan-amount').value.trim() || '___________';
+            const loanPurpose = document.getElementById('loan-purpose').value.trim() || '___________';
+    
+            const templateContent = `Dear Loan Officer,
+            
+I am writing to apply for a loan in the amount of ${loanAmount}. The purpose of this loan is ${loanPurpose}.
+            
+My personal details are as follows:
+- Name: ${name}
+- Address: ${address}
+- Phone Number: ${phone}
+- Email Address: ${email}
+            
+Thank you for considering my application. I am looking forward to your positive response.
+    
+Best regards,
+${name}
+`;
+    
+            const doc = new jsPDF();
+            doc.setFont('times', 'normal');
+            doc.setFontSize(12);
+            const lines = doc.splitTextToSize(templateContent, 180); // Adjust width as needed
+            doc.text(10, 10, lines);
+    
+            doc.save('LoanApplication.pdf');
+        }
+    </script>
+</body>
+</html>

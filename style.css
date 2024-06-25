@@ -1,0 +1,248 @@
+/* General styles */
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Navigation styles */
+nav {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+}
+
+.menu-par {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-par h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav li {
+    position: relative;
+}
+
+.menu-hover:hover::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    bottom: -5px;
+    left: 0;
+}
+
+#toggle-btn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        background-color: #fff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .nav ul.show {
+        display: flex;
+    }
+
+    #toggle-btn {
+        display: block;
+        cursor: pointer;
+    }
+
+    #toggle-btn .fa {
+        font-size: 24px;
+    }
+}
+
+/* Header styles */
+header {
+    background: url('https://source.unsplash.com/1600x900/?office,writing') no-repeat center center/cover;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+    position: relative;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header-info-par {
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+header p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+}
+
+header a {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Departments section */
+#departments {
+    padding: 60px 0;
+    text-align: center;
+}
+
+#departments h2 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.departments-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.department {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    flex: 1;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.department:hover {
+    transform: translateY(-5px);
+}
+
+.department h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.department p {
+    font-size: 1em;
+    color: #666;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+}
+
+.footer-content-par {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-content {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+.footer-content h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.footer-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-content ul li {
+    margin-bottom: 10px;
+}
+
+.footer-content ul li a {
+    color: #fff;
+}
+
+.footer-content ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    header p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 80px 0;
+    }
+
+    .department {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    header p {
+        font-size: 0.9em;
+    }
+}

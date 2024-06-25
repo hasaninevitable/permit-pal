@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Statement Request Form - LetterGen</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="bankform.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="menu-par">
+                <div class="logo-par">
+                    <a href="index.html">
+                        <h2>LetterGen</h2>
+                    </a>
+                </div>
+                <div class="nav">
+                    <ul>
+                        <li><a class="menu-hover" href="index.html">Home</a></li>
+                        <li><a class="menu-hover" href="banking.html">Banking</a></li>
+                        <li><a class="menu-hover" href="municipal.html">Municipal</a></li>
+                        <li><a class="menu-hover" href="employee.html">Employee</a></li>
+                    </ul>
+                </div>
+                <div id="toggle-btn">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="header-info-par">
+                <h1>Bank Statement Request Form</h1>
+                <p>Fill in your details to generate a bank statement request letter.</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="form-section">
+        <div class="container">
+            <form id="bank-statement-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="account-number">Account Number:</label>
+                    <input type="text" id="account-number" name="account-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="branch">Branch Name:</label>
+                    <input type="text" id="branch" name="branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="period">Statement Period:</label>
+                    <input type="text" id="period" name="period" required>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="generateTemplate()">Generate Template</button>
+                </div>
+            </form>
+            <a id="download-link" href="#" download style="display:none;">Download Template</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content-par">
+                <div class="footer-content">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="banking.html">Banking</a></li>
+                        <li><a href="municipal.html">Municipal</a></li>
+                        <li><a href="employee.html">Employee</a></li>
+                    </ul>
+                </div>
+                <div class="footer-content">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-content">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="mailto:support@lettergen.com">Email: support@lettergen.com</a></li>
+                        <li><a href="tel:+1234567890">Phone: +123 456 7890</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('bank-statement-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                generateTemplate();
+            });
+        });
+
+        function generateTemplate() {
+            const { jsPDF } = window.jspdf;
+
+            const name = document.getElementById('name').value;
+            const accountNumber = document.getElementById('account-number').value;
+            const branch = document.getElementById('branch').value;
+            const address = document.getElementById('address').value;
+            const period = document.getElementById('period').value;
+
+            const templateContent = `Dear Sir/Madam,
+
+I am writing to request a bank statement for my account with the following details:
+
+Name: ${name}
+Account Number: ${accountNumber}
+Branch Name: ${branch}
+Address: ${address}
+Statement Period: ${period}
+
+I would appreciate it if you could process my request at your earliest convenience. Please let me know if you need any further information.
+
+Thank you for your assistance.
+
+Yours faithfully,
+${name}`;
+
+            const doc = new jsPDF();
+            doc.setFont('times', 'normal');
+            doc.setFontSize(12);
+            const lines = templateContent.split('\n');
+            let y = 10;
+            lines.forEach(line => {
+                doc.text(line, 10, y);
+                y += 10;
+            });
+
+            doc.save('BankStatementRequest.pdf');
+        }
+    </script>
+</body>
+</html>

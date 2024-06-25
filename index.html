@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1" />
+    <title>Letter Template Generation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="menu-par">
+                <div class="logo-par">
+                    <a href="index.html">
+                        <h2>LetterGen</h2>
+                    </a>
+                </div>
+                <div class="nav">
+                    <ul>
+                        <li><a class="menu-hover" href="index.html">Home</a></li>
+                        <li><a class="menu-hover" href="banking.html">Banking</a></li>
+                        <li><a class="menu-hover" href="municipal.html">Municipal</a></li>
+                        <li><a class="menu-hover" href="employee.html">Employee</a></li>
+                    </ul>
+                </div>
+                <div id="toggle-btn">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="header-info-par">
+                <h1 class="typewrite" data-period="2000" data-type='["Generate your letters easily", "Choose a template and start", "Banking, Municipal, Employee letters"]'></h1>
+                <p>Your one-stop solution for generating professional letters for various purposes.</p>
+                <a href="banking.html" class="a">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="departments">
+        <div class="container">
+            <h2>Choose a Department</h2>
+            <div class="departments-grid">
+                <div class="department">
+                    <a href="banking.html">
+                        <img src="images/banking.jpg" alt="Banking">
+                        <h3>Banking</h3>
+                        <p>Create professional banking-related letters.</p>
+                    </a>
+                </div>
+                <div class="department">
+                    <a href="municipal.html">
+                        <img src="images/municipal.jpg" alt="Municipal">
+                        <h3>Municipal</h3>
+                        <p>Generate letters for municipal services.</p>
+                    </a>
+                </div>
+                <div class="department">
+                    <a href="employee.html">
+                        <img src="images/employee.jpg" alt="Employee">
+                        <h3>Employee</h3>
+                        <p>Get templates for employee-related letters.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content-par">
+                <div class="footer-content">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="banking.html">Banking</a></li>
+                        <li><a href="municipal.html">Municipal</a></li>
+                        <li><a href="employee.html">Employee</a></li>
+                    </ul>
+                </div>
+                <div class="footer-content">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-content">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="mailto:support@lettergen.com">Email: support@lettergen.com</a></li>
+                        <li><a href="tel:+1234567890">Phone: +123 456 7890</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Toggle nav menu on small screens
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            var nav = document.querySelector('.nav ul');
+            nav.classList.toggle('show');
+        });
+
+        // Typewriter effect for header
+        var TxtType = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+
+        TxtType.prototype.tick = function() {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+            var that = this;
+            var delta = 200 - Math.random() * 100;
+
+            if (this.isDeleting) { delta /= 2; }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+
+            setTimeout(function() {
+                that.tick();
+            }, delta);
+        };
+
+        window.onload = function() {
+            var elements = document.getElementsByClassName('typewrite');
+            for (var i=0; i<elements.length; i++) {
+                var toRotate = elements[i].getAttribute('data-type');
+                var period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                  new TxtType(elements[i], JSON.parse(toRotate), period);
+                }
+            }
+            var css = document.createElement("style");
+            css.type = "text/css";
+            css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+            document.body.appendChild(css);
+        };
+    </script>
+</body>
+</html>
